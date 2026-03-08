@@ -16,50 +16,68 @@
     body {
       margin: 0;
       min-height: 100vh;
-      overflow: hidden;
+      overflow: auto;
       font-family: "Arial", sans-serif;
       color: var(--text);
       background: #d9e5ef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
 
     h1 {
       position: fixed;
-      inset: 0;
-      margin: auto;
-      width: fit-content;
-      height: fit-content;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
       font-size: clamp(2rem, 8vw, 5rem);
       text-shadow: 0 2px 0 #fff;
       z-index: 1;
       pointer-events: none;
+      text-align: center;
     }
 
-    .pet {
-      position: fixed;
-      width: clamp(72px, 12vw, 150px);
-      height: auto;
-      user-select: none;
-      cursor: pointer;
+    .stage {
+      position: relative;
+      width: min(92vw, 1100px);
       z-index: 3;
-      filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.2));
-      transition: transform 0.1s linear;
+    }
+
+    .sheet {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 14px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+      user-select: none;
       -webkit-user-drag: none;
     }
 
-    .pet:active {
+    .pet-hit {
+      position: absolute;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      transition: transform 0.08s linear;
+      border-radius: 20px;
+    }
+
+    .pet-hit:active {
       transform: scale(0.92);
     }
 
-    #cat { left: 4%; top: 4%; }
-    #lion { left: 27%; top: 4%; }
-    #tiger { left: 50%; top: 4%; }
-    #chick { left: 73%; top: 4%; }
-    #seal { left: 4%; top: 34%; }
-    #penguin { left: 27%; top: 34%; }
-    #fox { left: 50%; top: 34%; }
-    #deer { left: 73%; top: 34%; }
-    #bear { left: 22%; top: 66%; }
-    #koala { left: 45%; top: 66%; }
+    #cat { left: 5%; top: 5%; width: 18%; height: 27%; }
+    #lion { left: 28%; top: 5%; width: 18%; height: 27%; }
+    #tiger { left: 50%; top: 6%; width: 20%; height: 26%; }
+    #chick { left: 75%; top: 7%; width: 12%; height: 22%; }
+    #seal { left: 5%; top: 37%; width: 17%; height: 27%; }
+    #penguin { left: 29%; top: 37%; width: 14%; height: 27%; }
+    #fox { left: 50%; top: 38%; width: 21%; height: 26%; }
+    #deer { left: 73%; top: 37%; width: 16%; height: 28%; }
+    #bear { left: 9%; top: 69%; width: 18%; height: 28%; }
+    #koala { left: 31%; top: 69%; width: 18%; height: 28%; }
 
     .hint {
       position: fixed;
@@ -79,16 +97,19 @@
   <h1>אוהב אותך אישתי האהובה</h1>
   <div class="hint">תלחצי על החיות - הן עושות רעש</div>
 
-  <img id="cat" class="pet" src="./assets/animals/cat.png" alt="Chibi cat" data-sound="cat" />
-  <img id="lion" class="pet" src="./assets/animals/lion.png" alt="Chibi lion" data-sound="lion" />
-  <img id="tiger" class="pet" src="./assets/animals/tiger.png" alt="Chibi tiger" data-sound="tiger" />
-  <img id="chick" class="pet" src="./assets/animals/chick.png" alt="Chibi chick" data-sound="chick" />
-  <img id="seal" class="pet" src="./assets/animals/seal.png" alt="Chibi seal" data-sound="seal" />
-  <img id="penguin" class="pet" src="./assets/animals/penguin.png" alt="Chibi penguin" data-sound="penguin" />
-  <img id="fox" class="pet" src="./assets/animals/fox.png" alt="Chibi fox" data-sound="fox" />
-  <img id="deer" class="pet" src="./assets/animals/deer.png" alt="Chibi deer" data-sound="deer" />
-  <img id="bear" class="pet" src="./assets/animals/bear.png" alt="Chibi bear" data-sound="bear" />
-  <img id="koala" class="pet" src="./assets/animals/koala.png" alt="Chibi koala" data-sound="koala" />
+  <div class="stage">
+    <img class="sheet" src="./chibi-sheet.png" alt="Chibi animals" />
+    <button id="cat" class="pet-hit" aria-label="Cat" data-sound="cat"></button>
+    <button id="lion" class="pet-hit" aria-label="Lion" data-sound="lion"></button>
+    <button id="tiger" class="pet-hit" aria-label="Tiger" data-sound="tiger"></button>
+    <button id="chick" class="pet-hit" aria-label="Chick" data-sound="chick"></button>
+    <button id="seal" class="pet-hit" aria-label="Seal" data-sound="seal"></button>
+    <button id="penguin" class="pet-hit" aria-label="Penguin" data-sound="penguin"></button>
+    <button id="fox" class="pet-hit" aria-label="Fox" data-sound="fox"></button>
+    <button id="deer" class="pet-hit" aria-label="Deer" data-sound="deer"></button>
+    <button id="bear" class="pet-hit" aria-label="Bear" data-sound="bear"></button>
+    <button id="koala" class="pet-hit" aria-label="Koala" data-sound="koala"></button>
+  </div>
 
   <audio id="catSound" preload="auto" src="./assets/sounds/cat.mp3"></audio>
   <audio id="lionSound" preload="auto" src="./assets/sounds/lion.mp3"></audio>
@@ -114,7 +135,7 @@
       bear: document.getElementById("bearSound"),
       koala: document.getElementById("koalaSound"),
     };
-    const pets = Array.from(document.querySelectorAll(".pet"));
+    const pets = Array.from(document.querySelectorAll(".pet-hit"));
 
     for (const pet of pets) {
       pet.addEventListener("click", async () => {
