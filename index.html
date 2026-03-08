@@ -54,17 +54,16 @@
       transform: scale(0.92);
     }
 
-    #penguin {
-      background-position: -230px -215px;
-      right: 18%;
-      top: 56%;
-    }
-
-    #rabbit {
-      background-position: -505px -215px;
-      left: 18%;
-      top: 56%;
-    }
+    #cat { background-position: -30px -45px; left: 6%; top: 8%; }
+    #lion { background-position: -210px -45px; left: 26%; top: 8%; }
+    #tiger { background-position: -365px -45px; left: 46%; top: 8%; }
+    #bird { background-position: -525px -45px; left: 66%; top: 8%; }
+    #seal { background-position: -30px -215px; left: 6%; top: 40%; }
+    #penguin { background-position: -230px -215px; left: 26%; top: 40%; }
+    #fox { background-position: -390px -215px; left: 46%; top: 40%; }
+    #deer { background-position: -540px -215px; left: 66%; top: 40%; }
+    #bear { background-position: -40px -340px; left: 16%; top: 70%; }
+    #koala { background-position: -230px -340px; left: 36%; top: 70%; }
 
     .hint {
       position: fixed;
@@ -82,31 +81,36 @@
 </head>
 <body>
   <h1>אוהב אותך אישתי האהובה</h1>
-  <div class="hint">תלחצי עליהם - הם עושים רעש</div>
+  <div class="hint">תלחצי על החיות - הן עושות רעש</div>
 
-  <div id="penguin" class="pet" role="button" aria-label="Chibi penguin"></div>
-  <div id="rabbit" class="pet" role="button" aria-label="Chibi rabbit"></div>
+  <div id="cat" class="pet" role="button" aria-label="Chibi cat" data-sound="rabbit"></div>
+  <div id="lion" class="pet" role="button" aria-label="Chibi lion" data-sound="rabbit"></div>
+  <div id="tiger" class="pet" role="button" aria-label="Chibi tiger" data-sound="rabbit"></div>
+  <div id="bird" class="pet" role="button" aria-label="Chibi bird" data-sound="penguin"></div>
+  <div id="seal" class="pet" role="button" aria-label="Chibi seal" data-sound="penguin"></div>
+  <div id="penguin" class="pet" role="button" aria-label="Chibi penguin" data-sound="penguin"></div>
+  <div id="fox" class="pet" role="button" aria-label="Chibi fox" data-sound="rabbit"></div>
+  <div id="deer" class="pet" role="button" aria-label="Chibi deer" data-sound="rabbit"></div>
+  <div id="bear" class="pet" role="button" aria-label="Chibi bear" data-sound="rabbit"></div>
+  <div id="koala" class="pet" role="button" aria-label="Chibi koala" data-sound="rabbit"></div>
 
   <audio id="penguinSound" preload="auto" src="./assets/sounds/penguin.mp3"></audio>
   <audio id="rabbitSound" preload="auto" src="./assets/sounds/rabbit.mp3"></audio>
 
   <script>
-    const pets = [
-      {
-        el: document.getElementById("penguin"),
-        audio: document.getElementById("penguinSound"),
-      },
-      {
-        el: document.getElementById("rabbit"),
-        audio: document.getElementById("rabbitSound"),
-      },
-    ];
+    const sounds = {
+      penguin: document.getElementById("penguinSound"),
+      rabbit: document.getElementById("rabbitSound"),
+    };
+    const pets = Array.from(document.querySelectorAll(".pet"));
 
     for (const pet of pets) {
-      pet.el.addEventListener("click", async () => {
+      pet.addEventListener("click", async () => {
         try {
-          pet.audio.currentTime = 0;
-          await pet.audio.play();
+          const soundName = pet.dataset.sound || "rabbit";
+          const audio = sounds[soundName] || sounds.rabbit;
+          audio.currentTime = 0;
+          await audio.play();
         } catch (err) {
           console.error("Audio play blocked", err);
         }
