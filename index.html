@@ -19,7 +19,7 @@
       overflow: hidden;
       font-family: "Arial", sans-serif;
       color: var(--text);
-      background: radial-gradient(circle at 20% 20%, #ffffff 0%, var(--bg1) 45%, var(--bg2) 100%);
+      background: #d9e5ef;
     }
 
     h1 {
@@ -36,8 +36,8 @@
 
     .pet {
       position: fixed;
-      width: 170px;
-      height: 170px;
+      width: 150px;
+      height: 133px;
       user-select: none;
       cursor: pointer;
       z-index: 3;
@@ -45,7 +45,7 @@
       transition: transform 0.1s linear;
       -webkit-user-drag: none;
       background-image: url("./chibi-sheet.png");
-      background-size: 768px 512px;
+      background-size: 600px 400px;
       background-repeat: no-repeat;
       border-radius: 18px;
     }
@@ -54,16 +54,16 @@
       transform: scale(0.92);
     }
 
-    #cat { background-position: -30px -45px; left: 6%; top: 8%; }
-    #lion { background-position: -210px -45px; left: 26%; top: 8%; }
-    #tiger { background-position: -365px -45px; left: 46%; top: 8%; }
-    #bird { background-position: -525px -45px; left: 66%; top: 8%; }
-    #seal { background-position: -30px -215px; left: 6%; top: 40%; }
-    #penguin { background-position: -230px -215px; left: 26%; top: 40%; }
-    #fox { background-position: -390px -215px; left: 46%; top: 40%; }
-    #deer { background-position: -540px -215px; left: 66%; top: 40%; }
-    #bear { background-position: -40px -340px; left: 16%; top: 70%; }
-    #koala { background-position: -230px -340px; left: 36%; top: 70%; }
+    #cat { background-position: 0 0; left: 4%; top: 4%; }
+    #lion { background-position: -150px 0; left: 27%; top: 4%; }
+    #tiger { background-position: -300px 0; left: 50%; top: 4%; }
+    #chick { background-position: -450px 0; left: 73%; top: 4%; }
+    #seal { background-position: 0 -133px; left: 4%; top: 34%; }
+    #penguin { background-position: -150px -133px; left: 27%; top: 34%; }
+    #fox { background-position: -300px -133px; left: 50%; top: 34%; }
+    #deer { background-position: -450px -133px; left: 73%; top: 34%; }
+    #bear { background-position: 0 -266px; left: 22%; top: 66%; }
+    #koala { background-position: -150px -266px; left: 45%; top: 66%; }
 
     .hint {
       position: fixed;
@@ -83,32 +83,48 @@
   <h1>אוהב אותך אישתי האהובה</h1>
   <div class="hint">תלחצי על החיות - הן עושות רעש</div>
 
-  <div id="cat" class="pet" role="button" aria-label="Chibi cat" data-sound="rabbit"></div>
-  <div id="lion" class="pet" role="button" aria-label="Chibi lion" data-sound="rabbit"></div>
-  <div id="tiger" class="pet" role="button" aria-label="Chibi tiger" data-sound="rabbit"></div>
-  <div id="bird" class="pet" role="button" aria-label="Chibi bird" data-sound="penguin"></div>
-  <div id="seal" class="pet" role="button" aria-label="Chibi seal" data-sound="penguin"></div>
+  <div id="cat" class="pet" role="button" aria-label="Chibi cat" data-sound="cat"></div>
+  <div id="lion" class="pet" role="button" aria-label="Chibi lion" data-sound="lion"></div>
+  <div id="tiger" class="pet" role="button" aria-label="Chibi tiger" data-sound="tiger"></div>
+  <div id="chick" class="pet" role="button" aria-label="Chibi chick" data-sound="chick"></div>
+  <div id="seal" class="pet" role="button" aria-label="Chibi seal" data-sound="seal"></div>
   <div id="penguin" class="pet" role="button" aria-label="Chibi penguin" data-sound="penguin"></div>
-  <div id="fox" class="pet" role="button" aria-label="Chibi fox" data-sound="rabbit"></div>
-  <div id="deer" class="pet" role="button" aria-label="Chibi deer" data-sound="rabbit"></div>
-  <div id="bear" class="pet" role="button" aria-label="Chibi bear" data-sound="rabbit"></div>
-  <div id="koala" class="pet" role="button" aria-label="Chibi koala" data-sound="rabbit"></div>
+  <div id="fox" class="pet" role="button" aria-label="Chibi fox" data-sound="fox"></div>
+  <div id="deer" class="pet" role="button" aria-label="Chibi deer" data-sound="deer"></div>
+  <div id="bear" class="pet" role="button" aria-label="Chibi bear" data-sound="bear"></div>
+  <div id="koala" class="pet" role="button" aria-label="Chibi koala" data-sound="koala"></div>
 
+  <audio id="catSound" preload="auto" src="./assets/sounds/cat.mp3"></audio>
+  <audio id="lionSound" preload="auto" src="./assets/sounds/lion.mp3"></audio>
+  <audio id="tigerSound" preload="auto" src="./assets/sounds/tiger.mp3"></audio>
+  <audio id="chickSound" preload="auto" src="./assets/sounds/chick.mp3"></audio>
+  <audio id="sealSound" preload="auto" src="./assets/sounds/seal.mp3"></audio>
   <audio id="penguinSound" preload="auto" src="./assets/sounds/penguin.mp3"></audio>
-  <audio id="rabbitSound" preload="auto" src="./assets/sounds/rabbit.mp3"></audio>
+  <audio id="foxSound" preload="auto" src="./assets/sounds/fox.mp3"></audio>
+  <audio id="deerSound" preload="auto" src="./assets/sounds/deer.mp3"></audio>
+  <audio id="bearSound" preload="auto" src="./assets/sounds/bear.mp3"></audio>
+  <audio id="koalaSound" preload="auto" src="./assets/sounds/koala.mp3"></audio>
 
   <script>
     const sounds = {
+      cat: document.getElementById("catSound"),
+      lion: document.getElementById("lionSound"),
+      tiger: document.getElementById("tigerSound"),
+      chick: document.getElementById("chickSound"),
+      seal: document.getElementById("sealSound"),
       penguin: document.getElementById("penguinSound"),
-      rabbit: document.getElementById("rabbitSound"),
+      fox: document.getElementById("foxSound"),
+      deer: document.getElementById("deerSound"),
+      bear: document.getElementById("bearSound"),
+      koala: document.getElementById("koalaSound"),
     };
     const pets = Array.from(document.querySelectorAll(".pet"));
 
     for (const pet of pets) {
       pet.addEventListener("click", async () => {
         try {
-          const soundName = pet.dataset.sound || "rabbit";
-          const audio = sounds[soundName] || sounds.rabbit;
+          const soundName = pet.dataset.sound || "cat";
+          const audio = sounds[soundName] || sounds.cat;
           audio.currentTime = 0;
           await audio.play();
         } catch (err) {
