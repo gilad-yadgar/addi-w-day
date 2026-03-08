@@ -36,18 +36,30 @@
 
     .pet {
       position: fixed;
-      width: 120px;
-      height: 120px;
+      width: 170px;
+      height: 170px;
       user-select: none;
       cursor: pointer;
       z-index: 3;
       filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.2));
       transition: transform 0.1s linear;
       -webkit-user-drag: none;
+      background-image: url("./chibi-sheet.png");
+      background-size: 768px 512px;
+      background-repeat: no-repeat;
+      border-radius: 18px;
     }
 
     .pet:active {
       transform: scale(0.92);
+    }
+
+    #penguin {
+      background-position: -230px -215px;
+    }
+
+    #rabbit {
+      background-position: -505px -215px;
     }
 
     .hint {
@@ -68,19 +80,8 @@
   <h1>אוהב אותך</h1>
   <div class="hint">תלחצי עליהם - הם עושים רעש</div>
 
-  <img
-    id="penguin"
-    class="pet"
-    alt="Chibi penguin"
-    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f427.png"
-  />
-
-  <img
-    id="rabbit"
-    class="pet"
-    alt="Chibi rabbit"
-    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f430.png"
-  />
+  <div id="penguin" class="pet" role="button" aria-label="Chibi penguin"></div>
+  <div id="rabbit" class="pet" role="button" aria-label="Chibi rabbit"></div>
 
   <audio id="penguinSound" preload="auto" src="https://commons.wikimedia.org/wiki/Special:FilePath/En-us-penguin.ogg"></audio>
   <audio id="rabbitSound" preload="auto" src="https://commons.wikimedia.org/wiki/Special:FilePath/En-us-rabbit.ogg"></audio>
