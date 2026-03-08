@@ -36,34 +36,30 @@
 
     .pet {
       position: fixed;
-      width: 150px;
-      height: 133px;
+      width: clamp(72px, 12vw, 150px);
+      height: auto;
       user-select: none;
       cursor: pointer;
       z-index: 3;
       filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.2));
       transition: transform 0.1s linear;
       -webkit-user-drag: none;
-      background-image: url("./chibi-sheet.png");
-      background-size: 600px 400px;
-      background-repeat: no-repeat;
-      border-radius: 18px;
     }
 
     .pet:active {
       transform: scale(0.92);
     }
 
-    #cat { background-position: 0 0; left: 4%; top: 4%; }
-    #lion { background-position: -150px 0; left: 27%; top: 4%; }
-    #tiger { background-position: -300px 0; left: 50%; top: 4%; }
-    #chick { background-position: -450px 0; left: 73%; top: 4%; }
-    #seal { background-position: 0 -133px; left: 4%; top: 34%; }
-    #penguin { background-position: -150px -133px; left: 27%; top: 34%; }
-    #fox { background-position: -300px -133px; left: 50%; top: 34%; }
-    #deer { background-position: -450px -133px; left: 73%; top: 34%; }
-    #bear { background-position: 0 -266px; left: 22%; top: 66%; }
-    #koala { background-position: -150px -266px; left: 45%; top: 66%; }
+    #cat { left: 4%; top: 4%; }
+    #lion { left: 27%; top: 4%; }
+    #tiger { left: 50%; top: 4%; }
+    #chick { left: 73%; top: 4%; }
+    #seal { left: 4%; top: 34%; }
+    #penguin { left: 27%; top: 34%; }
+    #fox { left: 50%; top: 34%; }
+    #deer { left: 73%; top: 34%; }
+    #bear { left: 22%; top: 66%; }
+    #koala { left: 45%; top: 66%; }
 
     .hint {
       position: fixed;
@@ -83,16 +79,16 @@
   <h1>אוהב אותך אישתי האהובה</h1>
   <div class="hint">תלחצי על החיות - הן עושות רעש</div>
 
-  <div id="cat" class="pet" role="button" aria-label="Chibi cat" data-sound="cat"></div>
-  <div id="lion" class="pet" role="button" aria-label="Chibi lion" data-sound="lion"></div>
-  <div id="tiger" class="pet" role="button" aria-label="Chibi tiger" data-sound="tiger"></div>
-  <div id="chick" class="pet" role="button" aria-label="Chibi chick" data-sound="chick"></div>
-  <div id="seal" class="pet" role="button" aria-label="Chibi seal" data-sound="seal"></div>
-  <div id="penguin" class="pet" role="button" aria-label="Chibi penguin" data-sound="penguin"></div>
-  <div id="fox" class="pet" role="button" aria-label="Chibi fox" data-sound="fox"></div>
-  <div id="deer" class="pet" role="button" aria-label="Chibi deer" data-sound="deer"></div>
-  <div id="bear" class="pet" role="button" aria-label="Chibi bear" data-sound="bear"></div>
-  <div id="koala" class="pet" role="button" aria-label="Chibi koala" data-sound="koala"></div>
+  <img id="cat" class="pet" src="./assets/animals/cat.png" alt="Chibi cat" data-sound="cat" />
+  <img id="lion" class="pet" src="./assets/animals/lion.png" alt="Chibi lion" data-sound="lion" />
+  <img id="tiger" class="pet" src="./assets/animals/tiger.png" alt="Chibi tiger" data-sound="tiger" />
+  <img id="chick" class="pet" src="./assets/animals/chick.png" alt="Chibi chick" data-sound="chick" />
+  <img id="seal" class="pet" src="./assets/animals/seal.png" alt="Chibi seal" data-sound="seal" />
+  <img id="penguin" class="pet" src="./assets/animals/penguin.png" alt="Chibi penguin" data-sound="penguin" />
+  <img id="fox" class="pet" src="./assets/animals/fox.png" alt="Chibi fox" data-sound="fox" />
+  <img id="deer" class="pet" src="./assets/animals/deer.png" alt="Chibi deer" data-sound="deer" />
+  <img id="bear" class="pet" src="./assets/animals/bear.png" alt="Chibi bear" data-sound="bear" />
+  <img id="koala" class="pet" src="./assets/animals/koala.png" alt="Chibi koala" data-sound="koala" />
 
   <audio id="catSound" preload="auto" src="./assets/sounds/cat.mp3"></audio>
   <audio id="lionSound" preload="auto" src="./assets/sounds/lion.mp3"></audio>
