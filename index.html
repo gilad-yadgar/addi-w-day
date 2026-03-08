@@ -56,10 +56,14 @@
 
     #penguin {
       background-position: -230px -215px;
+      right: 18%;
+      top: 56%;
     }
 
     #rabbit {
       background-position: -505px -215px;
+      left: 18%;
+      top: 56%;
     }
 
     .hint {
@@ -91,56 +95,12 @@
       {
         el: document.getElementById("penguin"),
         audio: document.getElementById("penguinSound"),
-        x: 40,
-        y: 90,
-        vx: 1.7,
-        vy: 1.2,
       },
       {
         el: document.getElementById("rabbit"),
         audio: document.getElementById("rabbitSound"),
-        x: 250,
-        y: 210,
-        vx: -1.5,
-        vy: 1.4,
       },
     ];
-
-    function clampPetsToViewport() {
-      for (const pet of pets) {
-        const maxX = window.innerWidth - pet.el.offsetWidth;
-        const maxY = window.innerHeight - pet.el.offsetHeight;
-        pet.x = Math.max(0, Math.min(maxX, pet.x));
-        pet.y = Math.max(0, Math.min(maxY, pet.y));
-      }
-    }
-
-    function tick() {
-      for (const pet of pets) {
-        pet.x += pet.vx;
-        pet.y += pet.vy;
-
-        const maxX = window.innerWidth - pet.el.offsetWidth;
-        const maxY = window.innerHeight - pet.el.offsetHeight;
-
-        if (pet.x <= 0 || pet.x >= maxX) {
-          pet.vx *= -1;
-          pet.x = Math.max(0, Math.min(maxX, pet.x));
-        }
-
-        if (pet.y <= 0 || pet.y >= maxY) {
-          pet.vy *= -1;
-          pet.y = Math.max(0, Math.min(maxY, pet.y));
-        }
-
-        const facing = pet.vx >= 0 ? 1 : -1;
-        pet.el.style.left = `${pet.x}px`;
-        pet.el.style.top = `${pet.y}px`;
-        pet.el.style.transform = `scaleX(${facing})`;
-      }
-
-      requestAnimationFrame(tick);
-    }
 
     for (const pet of pets) {
       pet.el.addEventListener("click", async () => {
@@ -153,9 +113,6 @@
       });
     }
 
-    window.addEventListener("resize", clampPetsToViewport);
-    clampPetsToViewport();
-    tick();
   </script>
 </body>
 </html>
