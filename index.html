@@ -4,8 +4,157 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>addi-w-day</title>
+  <style>
+    :root {
+      --bg1: #d8f0ff;
+      --bg2: #fff6dc;
+      --text: #1f2a36;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: "Arial", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 20% 20%, #ffffff 0%, var(--bg1) 45%, var(--bg2) 100%);
+    }
+
+    h1 {
+      position: fixed;
+      inset: 0;
+      margin: auto;
+      width: fit-content;
+      height: fit-content;
+      font-size: clamp(2rem, 8vw, 5rem);
+      text-shadow: 0 2px 0 #fff;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .pet {
+      position: fixed;
+      width: 120px;
+      height: 120px;
+      user-select: none;
+      cursor: pointer;
+      z-index: 3;
+      filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.2));
+      transition: transform 0.1s linear;
+      -webkit-user-drag: none;
+    }
+
+    .pet:active {
+      transform: scale(0.92);
+    }
+
+    .hint {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 14px;
+      z-index: 5;
+      backdrop-filter: blur(2px);
+    }
+  </style>
 </head>
 <body>
-  אוהב אותך
+  <h1>אוהב אותך</h1>
+  <div class="hint">תלחצי עליהם - הם עושים רעש</div>
+
+  <img
+    id="penguin"
+    class="pet"
+    alt="Chibi penguin"
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f427.png"
+  />
+
+  <img
+    id="rabbit"
+    class="pet"
+    alt="Chibi rabbit"
+    src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f430.png"
+  />
+
+  <audio id="penguinSound" preload="auto" src="https://commons.wikimedia.org/wiki/Special:FilePath/En-us-penguin.ogg"></audio>
+  <audio id="rabbitSound" preload="auto" src="https://commons.wikimedia.org/wiki/Special:FilePath/En-us-rabbit.ogg"></audio>
+
+  <script>
+    const pets = [
+      {
+        el: document.getElementById("penguin"),
+        audio: document.getElementById("penguinSound"),
+        x: 40,
+        y: 90,
+        vx: 1.7,
+        vy: 1.2,
+      },
+      {
+        el: document.getElementById("rabbit"),
+        audio: document.getElementById("rabbitSound"),
+        x: 250,
+        y: 210,
+        vx: -1.5,
+        vy: 1.4,
+      },
+    ];
+
+    function clampPetsToViewport() {
+      for (const pet of pets) {
+        const maxX = window.innerWidth - pet.el.offsetWidth;
+        const maxY = window.innerHeight - pet.el.offsetHeight;
+        pet.x = Math.max(0, Math.min(maxX, pet.x));
+        pet.y = Math.max(0, Math.min(maxY, pet.y));
+      }
+    }
+
+    function tick() {
+      for (const pet of pets) {
+        pet.x += pet.vx;
+        pet.y += pet.vy;
+
+        const maxX = window.innerWidth - pet.el.offsetWidth;
+        const maxY = window.innerHeight - pet.el.offsetHeight;
+
+        if (pet.x <= 0 || pet.x >= maxX) {
+          pet.vx *= -1;
+          pet.x = Math.max(0, Math.min(maxX, pet.x));
+        }
+
+        if (pet.y <= 0 || pet.y >= maxY) {
+          pet.vy *= -1;
+          pet.y = Math.max(0, Math.min(maxY, pet.y));
+        }
+
+        const facing = pet.vx >= 0 ? 1 : -1;
+        pet.el.style.left = `${pet.x}px`;
+        pet.el.style.top = `${pet.y}px`;
+        pet.el.style.transform = `scaleX(${facing})`;
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    for (const pet of pets) {
+      pet.el.addEventListener("click", async () => {
+        try {
+          pet.audio.currentTime = 0;
+          await pet.audio.play();
+        } catch (err) {
+          console.error("Audio play blocked", err);
+        }
+      });
+    }
+
+    window.addEventListener("resize", clampPetsToViewport);
+    clampPetsToViewport();
+    tick();
+  </script>
 </body>
 </html>
